@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* MindMate Design System - Calming Mental Wellness Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Wellness Colors - Soft & Calming */
+    --background: 248 100% 98%;
+    --foreground: 240 15% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 250 100% 99%;
+    --card-foreground: 240 15% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 250 100% 99%;
+    --popover-foreground: 240 15% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Lavender Primary - Calming & Gentle */
+    --primary: 264 83% 82%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 264 100% 95%;
+    --primary-glow: 264 83% 88%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Sky Blue Secondary - Peaceful */
+    --secondary: 197 71% 73%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 197 100% 95%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Mint Green Accent - Fresh & Hopeful */
+    --accent: 150 68% 85%;
+    --accent-foreground: 240 15% 25%;
+    --accent-light: 150 100% 96%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 250 20% 95%;
+    --muted-foreground: 240 10% 55%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 250 30% 90%;
+    --input: 250 30% 94%;
+    --ring: 264 83% 82%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Wellness Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary-light)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--accent-light)) 100%);
+    --gradient-calm: linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--secondary-light)) 50%, hsl(var(--accent-light)) 100%);
+    --gradient-breathing: radial-gradient(circle, hsl(var(--primary-glow) / 0.3) 0%, hsl(var(--secondary) / 0.2) 50%, transparent 70%);
+
+    /* Wellness Shadows */
+    --shadow-soft: 0 4px 20px hsl(var(--primary) / 0.1);
+    --shadow-medium: 0 8px 30px hsl(var(--primary) / 0.15);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
+    --shadow-floating: 0 20px 40px hsl(var(--primary) / 0.1);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +81,32 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode keeps the calming wellness theme */
+    --background: 240 20% 6%;
+    --foreground: 250 100% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 15% 8%;
+    --card-foreground: 250 100% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --primary: 264 83% 75%;
+    --primary-foreground: 240 20% 6%;
+    --primary-light: 264 60% 20%;
+    --primary-glow: 264 83% 80%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 197 60% 60%;
+    --secondary-foreground: 240 20% 6%;
+    --secondary-light: 197 40% 15%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --accent: 150 50% 65%;
+    --accent-foreground: 240 20% 6%;
+    --accent-light: 150 30% 15%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 10% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 240 15% 20%;
+    --input: 240 15% 18%;
+    --ring: 264 83% 75%;
   }
 }
 
@@ -100,6 +116,104 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
+
+@layer components {
+  /* Wellness Card Variants */
+  .wellness-card {
+    @apply bg-card border border-border rounded-[var(--radius)] shadow-[var(--shadow-soft)] transition-[var(--transition-smooth)];
+  }
+
+  .wellness-card-hover {
+    @apply wellness-card hover:shadow-[var(--shadow-medium)] hover:scale-[1.02];
+  }
+
+  .wellness-card-floating {
+    @apply wellness-card shadow-[var(--shadow-floating)] hover:shadow-[var(--shadow-glow)];
+  }
+
+  /* Breathing Animation */
+  .breathing-circle {
+    @apply rounded-full bg-[var(--gradient-breathing)] animate-[breathe_4s_ease-in-out_infinite];
+  }
+
+  /* Mood Emojis */
+  .mood-emoji {
+    @apply text-4xl cursor-pointer transition-[var(--transition-bounce)] hover:scale-125 active:scale-110;
+  }
+
+  .mood-emoji.selected {
+    @apply scale-125 drop-shadow-[0_0_20px_hsl(var(--primary-glow))] animate-pulse;
+  }
+
+  /* Gradient Backgrounds */
+  .bg-gradient-calm {
+    background: var(--gradient-calm);
+  }
+
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  /* Floating Elements */
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .floating-delayed {
+    animation: float 6s ease-in-out infinite 2s;
+  }
+}
+
+@layer utilities {
+  .text-shadow-soft {
+    text-shadow: 0 2px 4px hsl(var(--primary) / 0.1);
+  }
+
+  .backdrop-blur-wellness {
+    backdrop-filter: blur(20px) saturate(180%);
+    background: hsl(var(--card) / 0.8);
+  }
+}
+
+/* Custom Animations */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes mood-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
