@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Heart, Brain, BookOpen, Sparkles, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Heart, Brain, BookOpen, Sparkles } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import wellnessBackground from "@/assets/wellness-background.jpg";
 
 interface DashboardProps {
   onViewChange: (view: string) => void;
 }
 
-const Dashboard = ({ onViewChange }: DashboardProps) => {
+const Dashboard: React.FC<DashboardProps> = ({ onViewChange }) => {
   const [currentQuote, setCurrentQuote] = useState(0);
+  const { user } = useAuth();
+  const { toast } = useToast();
 
   const motivationalQuotes = [
     {
@@ -29,6 +34,30 @@ const Dashboard = ({ onViewChange }: DashboardProps) => {
       author: "Anonymous"
     },
   ];
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        toast({
+          title: "Logout Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Logged Out",
+          description: "You've been successfully logged out.",
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: "Logout Error",
+        description: "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -78,17 +107,35 @@ const Dashboard = ({ onViewChange }: DashboardProps) => {
       {/* Content */}
       <div className="relative z-10 p-6 pt-20 pb-32">
         {/* Header */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Sparkles className="w-8 h-8 text-primary animate-glow" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              MindMate
-            </h1>
-            <Sparkles className="w-8 h-8 text-secondary animate-glow" />
+        <div className="flex justify-between items-start mb-8">
+          <div className="text-center flex-1">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Sparkles className="w-8 h-8 text-primary animate-glow" />
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                MindMate
+              </h1>
+              <Sparkles className="w-8 h-8 text-secondary animate-glow" />
+            </div>
+            <p className="text-lg text-muted-foreground font-medium">
+              Your Personal Wellness Companion
+            </p>
           </div>
-          <p className="text-lg text-muted-foreground font-medium">
-            Your Personal Wellness Companion
-          </p>
+          
+          {/* User Profile & Logout */}
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground">Welcome back,</p>
+              <p className="font-medium text-foreground">{user?.email}</p>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+              className="text-muted-foreground hover:text-destructive"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
 
         {/* Daily Quote */}
